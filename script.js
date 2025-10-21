@@ -160,27 +160,43 @@ function getBuildRecommendation(heroId, role, enemyId) {
         recommendation += '<p>Баланс сил. Играйте осторожно.</p>';
     }
 
-    // Рекомендации по предметам (упрощенные)
+    // Рекомендации по предметам (расширенные)
     recommendation += '<h4>Рекомендуемые предметы:</h4><ul>';
     switch (role) {
         case 'carry':
-            recommendation += '<li>Power Treads</li><li>Black King Bar</li><li>Butterfly</li>';
+            recommendation += '<li>Power Treads (или Boots of Travel)</li><li>Black King Bar</li><li>Butterfly</li><li>Manta Style</li><li>Monkey King Bar</li><li>Abyssal Blade</li>';
             break;
         case 'mid':
-            recommendation += '<li>Blink Dagger</li><li>Force Staff</li><li>Scythe of Vyse</li>';
+            recommendation += '<li>Blink Dagger</li><li>Force Staff</li><li>Scythe of Vyse</li><li>Aether Lens</li><li>Nullifier</li><li>Linken\'s Sphere</li>';
             break;
         case 'offlane':
-            recommendation += '<li>Phase Boots</li><li>Blade Mail</li><li>Heart of Tarrasque</li>';
+            recommendation += '<li>Phase Boots</li><li>Blade Mail</li><li>Heart of Tarrasque</li><li>Assault Cuirass</li><li>Shiva\'s Guard</li><li>Crimson Guard</li>';
             break;
         case 'support':
-            recommendation += '<li>Mekansm</li><li>Guardian Greaves</li><li>Force Staff</li>';
+            recommendation += '<li>Mekansm</li><li>Guardian Greaves</li><li>Force Staff</li><li>Glimmer Cape</li><li>Lotus Orb</li><li>Aether Lens</li>';
             break;
         case 'roaming':
-            recommendation += '<li>Power Treads</li><li>Diffusal Blade</li><li>Manta Style</li>';
+            recommendation += '<li>Power Treads</li><li>Diffusal Blade</li><li>Manta Style</li><li>Eul\'s Scepter of Divinity</li><li>Desolator</li><li>Eye of Skadi</li>';
             break;
         default:
-            recommendation += '<li>Общие предметы: Boots of Speed, Gloves of Haste</li>';
+            recommendation += '<li>Общие предметы: Boots of Speed, Gloves of Haste, Hand of Midas</li>';
     }
+    recommendation += '</ul>';
+
+    // Дополнительные рекомендации
+    recommendation += '<h4>Дополнительные советы:</h4><ul>';
+    if (hero.counters.includes(enemyId)) {
+        recommendation += '<li>Агрессивная игра: используйте преимущество для раннего давления.</li>';
+        recommendation += '<li>Фокус на фарме: собирайте ресурсы для доминирования в поздней игре.</li>';
+    } else if (enemy.counters.includes(heroId)) {
+        recommendation += '<li>Оборонительная стратегия: избегайте прямых столкновений.</li>';
+        recommendation += '<li>Командная игра: полагайтесь на союзников для поддержки.</li>';
+    } else {
+        recommendation += '<li>Баланс: чередуйте агрессию и оборону в зависимости от ситуации.</li>';
+        recommendation += '<li>Адаптация: следите за пиками противника и корректируйте билд.</li>';
+    }
+    recommendation += '<li>Варды: контролируйте карту для предотвращения засад.</li>';
+    recommendation += '<li>Коммуникация: координируйте действия с командой.</li>';
     recommendation += '</ul>';
 
     return recommendation;
