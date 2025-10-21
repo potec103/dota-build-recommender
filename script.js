@@ -1,7 +1,7 @@
 // Данные о героях Dota 2 (полный список)
 const heroes = [
-    { id: 'abaddon', name: 'Abaddon', icon: 'https://cdn.dota2.com/apps/dota2/images/heroes/abaddon_icon.png', roles: ['support', 'offlane'], counters: ['phantom_assassin', 'juggernaut'] },
-    { id: 'alchemist', name: 'Alchemist', icon: 'https://cdn.dota2.com/apps/dota2/images/heroes/alchemist_icon.png', roles: ['carry'], counters: ['pudge', 'axe'] },
+    { id: 'abaddon', name: 'Abaddon', icon: 'images/heroes/abaddon_icon.png', roles: ['support', 'offlane'], counters: ['phantom_assassin', 'juggernaut'] },
+    { id: 'alchemist', name: 'Alchemist', icon: 'images/heroes/alchemist_icon.png', roles: ['carry'], counters: ['pudge', 'axe'] },
     { id: 'ancient_apparition', name: 'Ancient Apparition', roles: ['support'], counters: ['phantom_assassin', 'juggernaut'] },
     { id: 'antimage', name: 'Anti-Mage', roles: ['carry'], counters: ['axe', 'pudge'] },
     { id: 'arc_warden', name: 'Arc Warden', roles: ['carry', 'mid'], counters: ['pudge', 'axe'] },
