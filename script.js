@@ -141,7 +141,7 @@ function populateHeroes() {
     heroes.forEach(hero => {
         const option = document.createElement('option');
         option.value = hero.id;
-        option.innerHTML = `${hero.name} <img src="${hero.icon || 'https://via.placeholder.com/20x20?text=?'} " alt="${hero.name}" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 5px;">`;
+        option.innerHTML = `<img src="${hero.icon || 'https://via.placeholder.com/20x20?text=?'} " alt="${hero.name}" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;"> ${hero.name}`;
         heroSelect.appendChild(option);
 
         enemySelects.forEach(selectId => {
