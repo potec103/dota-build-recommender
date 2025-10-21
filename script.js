@@ -189,9 +189,41 @@ function populateHeroes() {
         });
     }
 
+    // Функция выбора героя по имени
+    function selectHeroByName(name) {
+        const hero = heroes.find(h => h.name.toLowerCase() === name.toLowerCase());
+        if (hero) {
+            // Находим элемент героя
+            const heroItem = allHeroItems.find(item =>
+                item.querySelector('.hero-name').textContent === hero.name
+            );
+            if (heroItem) {
+                // Убираем выделение с предыдущего
+                if (selectedHero) {
+                    selectedHero.classList.remove('selected');
+                }
+                // Выделяем найденного героя
+                heroItem.classList.add('selected');
+                selectedHero = heroItem;
+                // Сохраняем выбранного героя
+                document.getElementById('hero').value = hero.id;
+                // Прокручиваем к выбранному герою
+                heroItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    }
+
     // Обработчик поиска
     heroSearch.addEventListener('input', (e) => {
         filterHeroes(e.target.value);
+    });
+
+    // Обработчик выбора героя по Enter
+    heroSearch.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            selectHeroByName(e.target.value.trim());
+        }
     });
 
     // Скрытый input для героя
