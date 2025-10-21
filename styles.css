@@ -110,3 +110,46 @@ select option {
     background-color: rgba(0, 0, 0, 0.9);
     color: #fff;
 }
+
+.hero-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 2px solid rgba(255, 0, 0, 0.5);
+    border-radius: 8px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.hero-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.hero-item:hover {
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
+.hero-item.selected {
+    background-color: rgba(255, 0, 0, 0.5);
+    border: 2px solid #ff0000;
+}
+
+.hero-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    border-radius: 3px;
+}
+
+.hero-name {
+    color: #fff;
+    font-size: 14px;
+}

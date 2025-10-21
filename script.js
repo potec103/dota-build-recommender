@@ -128,27 +128,55 @@ const heroes = [
 
 // Заполнение селекторов героями
 function populateHeroes() {
-    const heroSelect = document.getElementById('hero');
+    const heroList = document.getElementById('hero-list');
     const enemySelects = ['enemy-carry', 'enemy-mid', 'enemy-offlane', 'enemy-support1', 'enemy-support2'];
 
     // Очищаем селекторы перед заполнением
-    heroSelect.innerHTML = '<option value="">-- Выберите героя --</option>';
+    heroList.innerHTML = '';
     enemySelects.forEach(selectId => {
         const select = document.getElementById(selectId);
         select.innerHTML = '<option value="">-- Выберите --</option>';
     });
 
+    let selectedHero = null;
+
     heroes.forEach(hero => {
+        // Создаем элемент для списка героев
+        const heroItem = document.createElement('div');
+        heroItem.className = 'hero-item';
+        heroItem.innerHTML = `
+            <img src="${hero.icon || 'https://via.placeholder.com/30x30?text=?'} " alt="${hero.name}" class="hero-icon">
+            <span class="hero-name">${hero.name}</span>
+        `;
+        heroItem.addEventListener('click', () => {
+            // Убираем выделение с предыдущего
+            if (selectedHero) {
+                selectedHero.classList.remove('selected');
+            }
+            // Выделяем текущего
+            heroItem.classList.add('selected');
+            selectedHero = heroItem;
+            // Сохраняем выбранного героя
+            document.getElementById('hero').value = hero.id;
+        });
+        heroList.appendChild(heroItem);
+
+        // Создаем опции для селекторов противника
         const option = document.createElement('option');
         option.value = hero.id;
-        option.textContent = hero.name; // Используем textContent для простоты, иконки не работают в option
-        heroSelect.appendChild(option);
-
+        option.textContent = hero.name;
         enemySelects.forEach(selectId => {
             const enemyOption = option.cloneNode(true);
             document.getElementById(selectId).appendChild(enemyOption);
         });
     });
+
+    // Скрытый input для героя
+    const hiddenHeroInput = document.createElement('input');
+    hiddenHeroInput.type = 'hidden';
+    hiddenHeroInput.id = 'hero';
+    hiddenHeroInput.required = true;
+    heroList.appendChild(hiddenHeroInput);
 }
 
 // Логика рекомендаций билда
