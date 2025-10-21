@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рекомендатор билдов Dota 2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Рекомендатор билдов Dota 2</h1>
+        <form id="build-form">
+            <div class="form-group">
+                <label for="hero">Выберите героя:</label>
+                <select id="hero" required>
+                    <option value="">-- Выберите героя --</option>
+                    <!-- Герои будут добавлены через JavaScript -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="role">Ваша роль:</label>
+                <select id="role" required>
+                    <option value="">-- Выберите роль --</option>
+                    <option value="carry">Carry</option>
+                    <option value="mid">Mid</option>
+                    <option value="offlane">Offlane</option>
+                    <option value="support">Support</option>
+                    <option value="roaming">Roaming</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="enemy">Против кого сражаетесь:</label>
+                <select id="enemy" required>
+                    <option value="">-- Выберите противника --</option>
+                    <!-- Противники будут добавлены через JavaScript -->
+                </select>
+            </div>
+            <button type="submit">Получить рекомендацию</button>
+        </form>
+        <div id="recommendation" class="recommendation hidden">
+            <h2>Рекомендуемый билд</h2>
+            <div id="build-content"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
