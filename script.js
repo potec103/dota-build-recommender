@@ -161,10 +161,12 @@ function populateHeroes() {
         });
         heroList.appendChild(heroItem);
 
-        // Создаем опции для селекторов противника
+        // Создаем опции для селекторов противника с иконками
         const option = document.createElement('option');
         option.value = hero.id;
         option.textContent = hero.name;
+        // Добавляем иконку в data атрибут для возможного использования
+        option.setAttribute('data-icon', hero.icon);
         enemySelects.forEach(selectId => {
             const enemyOption = option.cloneNode(true);
             document.getElementById(selectId).appendChild(enemyOption);
@@ -186,8 +188,8 @@ function getBuildRecommendation(heroId, role, enemyIds) {
 
     if (!hero || enemies.length === 0) return 'Недостаточно данных для рекомендации.';
 
-    let recommendation = `<h3>Рекомендация для ${hero.name} (${role})</h3>`;
-    recommendation += '<p>Противники: ' + enemies.map(e => e.name).join(', ') + '</p>';
+    let recommendation = `<h3>Рекомендация для <img src="${hero.icon}" alt="${hero.name}" class="hero-icon-small"> ${hero.name} (${role})</h3>`;
+    recommendation += '<p>Противники: ' + enemies.map(e => `<img src="${e.icon}" alt="${e.name}" class="hero-icon-small"> ${e.name}`).join(', ') + '</p>';
 
     // Анализ контрпиков
     const counters = enemies.filter(enemy => hero.counters.includes(enemy.id));
