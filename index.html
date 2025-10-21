@@ -29,11 +29,44 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="enemy">Против кого сражаетесь:</label>
-                <select id="enemy" required>
-                    <option value="">-- Выберите противника --</option>
-                    <!-- Противники будут добавлены через JavaScript -->
-                </select>
+                <label>Противники (выберите героев и их роли):</label>
+                <div class="enemy-selection">
+                    <div class="enemy-role">
+                        <label for="enemy-carry">Carry:</label>
+                        <select id="enemy-carry">
+                            <option value="">-- Выберите --</option>
+                            <!-- Герои будут добавлены через JavaScript -->
+                        </select>
+                    </div>
+                    <div class="enemy-role">
+                        <label for="enemy-mid">Mid:</label>
+                        <select id="enemy-mid">
+                            <option value="">-- Выберите --</option>
+                            <!-- Герои будут добавлены через JavaScript -->
+                        </select>
+                    </div>
+                    <div class="enemy-role">
+                        <label for="enemy-offlane">Offlane:</label>
+                        <select id="enemy-offlane">
+                            <option value="">-- Выберите --</option>
+                            <!-- Герои будут добавлены через JavaScript -->
+                        </select>
+                    </div>
+                    <div class="enemy-role">
+                        <label for="enemy-support1">Support 1:</label>
+                        <select id="enemy-support1">
+                            <option value="">-- Выберите --</option>
+                            <!-- Герои будут добавлены через JavaScript -->
+                        </select>
+                    </div>
+                    <div class="enemy-role">
+                        <label for="enemy-support2">Support 2:</label>
+                        <select id="enemy-support2">
+                            <option value="">-- Выберите --</option>
+                            <!-- Герои будут добавлены через JavaScript -->
+                        </select>
+                    </div>
+                </div>
             </div>
             <button type="submit">Получить рекомендацию</button>
         </form>

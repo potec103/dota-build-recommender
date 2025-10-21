@@ -129,7 +129,7 @@ const heroes = [
 // Заполнение селекторов героями
 function populateHeroes() {
     const heroSelect = document.getElementById('hero');
-    const enemySelect = document.getElementById('enemy');
+    const enemySelects = ['enemy-carry', 'enemy-mid', 'enemy-offlane', 'enemy-support1', 'enemy-support2'];
 
     heroes.forEach(hero => {
         const option = document.createElement('option');
@@ -137,58 +137,76 @@ function populateHeroes() {
         option.textContent = hero.name;
         heroSelect.appendChild(option);
 
-        const enemyOption = option.cloneNode(true);
-        enemySelect.appendChild(enemyOption);
+        enemySelects.forEach(selectId => {
+            const enemyOption = option.cloneNode(true);
+            document.getElementById(selectId).appendChild(enemyOption);
+        });
     });
 }
 
 // Логика рекомендаций билда
-function getBuildRecommendation(heroId, role, enemyId) {
+function getBuildRecommendation(heroId, role, enemyIds) {
     const hero = heroes.find(h => h.id === heroId);
-    const enemy = heroes.find(h => h.id === enemyId);
+    const enemies = enemyIds.map(id => heroes.find(h => h.id === id)).filter(Boolean);
 
-    if (!hero || !enemy) return 'Недостаточно данных для рекомендации.';
+    if (!hero || enemies.length === 0) return 'Недостаточно данных для рекомендации.';
 
-    let recommendation = `<h3>Рекомендация для ${hero.name} (${role}) против ${enemy.name}</h3>`;
+    let recommendation = `<h3>Рекомендация для ${hero.name} (${role})</h3>`;
+    recommendation += '<p>Противники: ' + enemies.map(e => e.name).join(', ') + '</p>';
 
-    // Простая логика рекомендаций
-    if (hero.counters.includes(enemyId)) {
-        recommendation += '<p>Вы имеете преимущество! Этот герой хорошо контролит противника.</p>';
-    } else if (enemy.counters.includes(heroId)) {
-        recommendation += '<p>Будьте осторожны! Этот герой уязвим к противнику.</p>';
-    } else {
+    // Анализ контрпиков
+    const counters = enemies.filter(enemy => hero.counters.includes(enemy.id));
+    const counteredBy = enemies.filter(enemy => enemy.counters.includes(hero.id));
+
+    if (counters.length > 0) {
+        recommendation += '<p>Преимущество против: ' + counters.map(e => e.name).join(', ') + '</p>';
+    }
+    if (counteredBy.length > 0) {
+        recommendation += '<p>Будьте осторожны с: ' + counteredBy.map(e => e.name).join(', ') + '</p>';
+    }
+    if (counters.length === 0 && counteredBy.length === 0) {
         recommendation += '<p>Баланс сил. Играйте осторожно.</p>';
     }
 
-    // Рекомендации по предметам (расширенные)
-    recommendation += '<h4>Рекомендуемые предметы:</h4><ul>';
+    // Рекомендации по предметам (расширенные с пошаговым объяснением)
+    recommendation += '<h4>Рекомендуемые предметы:</h4><ol>';
     switch (role) {
         case 'carry':
-            recommendation += '<li>Power Treads (или Boots of Travel)</li><li>Black King Bar</li><li>Butterfly</li><li>Manta Style</li><li>Monkey King Bar</li><li>Abyssal Blade</li>';
+            recommendation += '<li><strong>Ранние предметы:</strong> Power Treads (для мобильности и урона), Wraith Band (для урона и атрибутов)</li>';
+            recommendation += '<li><strong>Средняя игра:</strong> Black King Bar (для танкования магии), Manta Style (для иллюзий и скорости)</li>';
+            recommendation += '<li><strong>Поздняя игра:</strong> Butterfly (для уклонения и урона), Monkey King Bar (против иллюзий), Abyssal Blade (для контроля)</li>';
             break;
         case 'mid':
-            recommendation += '<li>Blink Dagger</li><li>Force Staff</li><li>Scythe of Vyse</li><li>Aether Lens</li><li>Nullifier</li><li>Linken\'s Sphere</li>';
+            recommendation += '<li><strong>Ранние предметы:</strong> Blink Dagger (для мобильности), Force Staff (для контроля)</li>';
+            recommendation += '<li><strong>Средняя игра:</strong> Scythe of Vyse (для отключения), Aether Lens (для маны)</li>';
+            recommendation += '<li><strong>Поздняя игра:</strong> Nullifier (против предметов), Linken\'s Sphere (защита от заклинаний)</li>';
             break;
         case 'offlane':
-            recommendation += '<li>Phase Boots</li><li>Blade Mail</li><li>Heart of Tarrasque</li><li>Assault Cuirass</li><li>Shiva\'s Guard</li><li>Crimson Guard</li>';
+            recommendation += '<li><strong>Ранние предметы:</strong> Phase Boots (для скорости), Blade Mail (для отражения урона)</li>';
+            recommendation += '<li><strong>Средняя игра:</strong> Heart of Tarrasque (для здоровья), Assault Cuirass (для урона команде)</li>';
+            recommendation += '<li><strong>Поздняя игра:</strong> Shiva\'s Guard (для замедления), Crimson Guard (для танкования)</li>';
             break;
         case 'support':
-            recommendation += '<li>Mekansm</li><li>Guardian Greaves</li><li>Force Staff</li><li>Glimmer Cape</li><li>Lotus Orb</li><li>Aether Lens</li>';
+            recommendation += '<li><strong>Ранние предметы:</strong> Mekansm (для лечения), Observer Ward (для зрения)</li>';
+            recommendation += '<li><strong>Средняя игра:</strong> Guardian Greaves (для лечения и маны), Force Staff (для контроля)</li>';
+            recommendation += '<li><strong>Поздняя игра:</strong> Glimmer Cape (для невидимости), Lotus Orb (для отражения)</li>';
             break;
         case 'roaming':
-            recommendation += '<li>Power Treads</li><li>Diffusal Blade</li><li>Manta Style</li><li>Eul\'s Scepter of Divinity</li><li>Desolator</li><li>Eye of Skadi</li>';
+            recommendation += '<li><strong>Ранние предметы:</strong> Power Treads (для мобильности), Diffusal Blade (для замедления)</li>';
+            recommendation += '<li><strong>Средняя игра:</strong> Manta Style (для иллюзий), Eul\'s Scepter (для контроля)</li>';
+            recommendation += '<li><strong>Поздняя игра:</strong> Desolator (для урона), Eye of Skadi (для замедления)</li>';
             break;
         default:
             recommendation += '<li>Общие предметы: Boots of Speed, Gloves of Haste, Hand of Midas</li>';
     }
-    recommendation += '</ul>';
+    recommendation += '</ol>';
 
     // Дополнительные рекомендации
     recommendation += '<h4>Дополнительные советы:</h4><ul>';
-    if (hero.counters.includes(enemyId)) {
+    if (counters.length > counteredBy.length) {
         recommendation += '<li>Агрессивная игра: используйте преимущество для раннего давления.</li>';
         recommendation += '<li>Фокус на фарме: собирайте ресурсы для доминирования в поздней игре.</li>';
-    } else if (enemy.counters.includes(heroId)) {
+    } else if (counteredBy.length > counters.length) {
         recommendation += '<li>Оборонительная стратегия: избегайте прямых столкновений.</li>';
         recommendation += '<li>Командная игра: полагайтесь на союзников для поддержки.</li>';
     } else {
@@ -208,14 +226,16 @@ document.getElementById('build-form').addEventListener('submit', function(e) {
 
     const heroId = document.getElementById('hero').value;
     const role = document.getElementById('role').value;
-    const enemyId = document.getElementById('enemy').value;
+    const enemyIds = ['enemy-carry', 'enemy-mid', 'enemy-offlane', 'enemy-support1', 'enemy-support2']
+        .map(id => document.getElementById(id).value)
+        .filter(id => id); // Убираем пустые значения
 
-    if (!heroId || !role || !enemyId) {
+    if (!heroId || !role || enemyIds.length === 0) {
         alert('Пожалуйста, заполните все поля.');
         return;
     }
 
-    const recommendation = getBuildRecommendation(heroId, role, enemyId);
+    const recommendation = getBuildRecommendation(heroId, role, enemyIds);
     document.getElementById('build-content').innerHTML = recommendation;
     document.getElementById('recommendation').classList.remove('hidden');
 });
