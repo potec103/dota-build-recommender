@@ -1,6 +1,6 @@
 // Данные о героях Dota 2 (полный список)
 const heroes = [
-    { id: 'abaddon', name: 'Abaddon', roles: ['support', 'offlane'], counters: ['phantom_assassin', 'juggernaut'] },
+    { id: 'abaddon', name: 'Abaddon', icon: 'images/heroes/abaddon.png', roles: ['support', 'offlane'], counters: ['phantom_assassin', 'juggernaut'] },
     { id: 'alchemist', name: 'Alchemist', roles: ['carry'], counters: ['pudge', 'axe'] },
     { id: 'ancient_apparition', name: 'Ancient Apparition', roles: ['support'], counters: ['phantom_assassin', 'juggernaut'] },
     { id: 'antimage', name: 'Anti-Mage', roles: ['carry'], counters: ['axe', 'pudge'] },
@@ -135,6 +135,7 @@ function populateHeroes() {
         const option = document.createElement('option');
         option.value = hero.id;
         option.textContent = hero.name;
+        option.setAttribute('data-icon', hero.icon);
         heroSelect.appendChild(option);
 
         enemySelects.forEach(selectId => {
