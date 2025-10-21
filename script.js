@@ -222,7 +222,13 @@ function populateHeroes() {
     heroSearch.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            selectHeroByName(e.target.value.trim());
+            const heroName = e.target.value.trim();
+            if (heroName) {
+                selectHeroByName(heroName);
+                // Очищаем поле поиска после выбора
+                e.target.value = '';
+                filterHeroes(''); // Показываем всех героев
+            }
         }
     });
 
