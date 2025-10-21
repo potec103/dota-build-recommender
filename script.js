@@ -135,9 +135,6 @@ function populateHeroes() {
         const option = document.createElement('option');
         option.value = hero.id;
         option.textContent = hero.name;
-        if (hero.icon) {
-            option.setAttribute('data-icon', hero.icon);
-        }
         heroSelect.appendChild(option);
 
         enemySelects.forEach(selectId => {
