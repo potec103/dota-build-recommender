@@ -1,7 +1,7 @@
 // Данные о героях Dota 2 (полный список)
 const heroes = [
-    { id: 'abaddon', name: 'Abaddon', icon: 'images/heroes/abaddon.png', roles: ['support', 'offlane'], counters: ['phantom_assassin', 'juggernaut'] },
-    { id: 'alchemist', name: 'Alchemist', icon: 'images/heroes/alchemist.png', roles: ['carry'], counters: ['pudge', 'axe'] },
+    { id: 'abaddon', name: 'Abaddon', icon: 'https://cdn.dota2.com/apps/dota2/images/heroes/abaddon_icon.png', roles: ['support', 'offlane'], counters: ['phantom_assassin', 'juggernaut'] },
+    { id: 'alchemist', name: 'Alchemist', icon: 'https://cdn.dota2.com/apps/dota2/images/heroes/alchemist_icon.png', roles: ['carry'], counters: ['pudge', 'axe'] },
     { id: 'ancient_apparition', name: 'Ancient Apparition', roles: ['support'], counters: ['phantom_assassin', 'juggernaut'] },
     { id: 'antimage', name: 'Anti-Mage', roles: ['carry'], counters: ['axe', 'pudge'] },
     { id: 'arc_warden', name: 'Arc Warden', roles: ['carry', 'mid'], counters: ['pudge', 'axe'] },
@@ -141,7 +141,7 @@ function populateHeroes() {
     heroes.forEach(hero => {
         const option = document.createElement('option');
         option.value = hero.id;
-        option.textContent = hero.name;
+        option.innerHTML = `<img src="${hero.icon}" alt="${hero.name}" style="width: 20px; height: 20px; margin-right: 5px;"> ${hero.name}`;
         heroSelect.appendChild(option);
 
         enemySelects.forEach(selectId => {
@@ -175,36 +175,36 @@ function getBuildRecommendation(heroId, role, enemyIds) {
         recommendation += '<p>Баланс сил. Играйте осторожно.</p>';
     }
 
-    // Рекомендации по предметам (расширенные с пошаговым объяснением)
+    // Рекомендации по предметам (расширенные с пошаговым объяснением и иконками)
     recommendation += '<h4>Рекомендуемые предметы:</h4><ol>';
     switch (role) {
         case 'carry':
-            recommendation += '<li><strong>Ранние предметы:</strong> Power Treads (для мобильности и урона), Wraith Band (для урона и атрибутов)</li>';
-            recommendation += '<li><strong>Средняя игра:</strong> Black King Bar (для танкования магии), Manta Style (для иллюзий и скорости)</li>';
-            recommendation += '<li><strong>Поздняя игра:</strong> Butterfly (для уклонения и урона), Monkey King Bar (против иллюзий), Abyssal Blade (для контроля)</li>';
+            recommendation += '<li><strong>Ранние предметы:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/power_treads_lg.png" alt="Power Treads" style="width: 30px; height: 20px;"> Power Treads (для мобильности и урона), <img src="https://cdn.dota2.com/apps/dota2/images/items/wraith_band_lg.png" alt="Wraith Band" style="width: 30px; height: 20px;"> Wraith Band (для урона и атрибутов)</li>';
+            recommendation += '<li><strong>Средняя игра:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/black_king_bar_lg.png" alt="Black King Bar" style="width: 30px; height: 20px;"> Black King Bar (для танкования магии), <img src="https://cdn.dota2.com/apps/dota2/images/items/manta_lg.png" alt="Manta Style" style="width: 30px; height: 20px;"> Manta Style (для иллюзий и скорости)</li>';
+            recommendation += '<li><strong>Поздняя игра:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/butterfly_lg.png" alt="Butterfly" style="width: 30px; height: 20px;"> Butterfly (для уклонения и урона), <img src="https://cdn.dota2.com/apps/dota2/images/items/monkey_king_bar_lg.png" alt="Monkey King Bar" style="width: 30px; height: 20px;"> Monkey King Bar (против иллюзий), <img src="https://cdn.dota2.com/apps/dota2/images/items/abyssal_blade_lg.png" alt="Abyssal Blade" style="width: 30px; height: 20px;"> Abyssal Blade (для контроля)</li>';
             break;
         case 'mid':
-            recommendation += '<li><strong>Ранние предметы:</strong> Blink Dagger (для мобильности), Force Staff (для контроля)</li>';
-            recommendation += '<li><strong>Средняя игра:</strong> Scythe of Vyse (для отключения), Aether Lens (для маны)</li>';
-            recommendation += '<li><strong>Поздняя игра:</strong> Nullifier (против предметов), Linken\'s Sphere (защита от заклинаний)</li>';
+            recommendation += '<li><strong>Ранние предметы:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/blink_lg.png" alt="Blink Dagger" style="width: 30px; height: 20px;"> Blink Dagger (для мобильности), <img src="https://cdn.dota2.com/apps/dota2/images/items/force_staff_lg.png" alt="Force Staff" style="width: 30px; height: 20px;"> Force Staff (для контроля)</li>';
+            recommendation += '<li><strong>Средняя игра:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/sheepstick_lg.png" alt="Scythe of Vyse" style="width: 30px; height: 20px;"> Scythe of Vyse (для отключения), <img src="https://cdn.dota2.com/apps/dota2/images/items/aether_lens_lg.png" alt="Aether Lens" style="width: 30px; height: 20px;"> Aether Lens (для маны)</li>';
+            recommendation += '<li><strong>Поздняя игра:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/nullifier_lg.png" alt="Nullifier" style="width: 30px; height: 20px;"> Nullifier (против предметов), <img src="https://cdn.dota2.com/apps/dota2/images/items/sphere_lg.png" alt="Linken\'s Sphere" style="width: 30px; height: 20px;"> Linken\'s Sphere (защита от заклинаний)</li>';
             break;
         case 'offlane':
-            recommendation += '<li><strong>Ранние предметы:</strong> Phase Boots (для скорости), Blade Mail (для отражения урона)</li>';
-            recommendation += '<li><strong>Средняя игра:</strong> Heart of Tarrasque (для здоровья), Assault Cuirass (для урона команде)</li>';
-            recommendation += '<li><strong>Поздняя игра:</strong> Shiva\'s Guard (для замедления), Crimson Guard (для танкования)</li>';
+            recommendation += '<li><strong>Ранние предметы:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/phase_boots_lg.png" alt="Phase Boots" style="width: 30px; height: 20px;"> Phase Boots (для скорости), <img src="https://cdn.dota2.com/apps/dota2/images/items/blade_mail_lg.png" alt="Blade Mail" style="width: 30px; height: 20px;"> Blade Mail (для отражения урона)</li>';
+            recommendation += '<li><strong>Средняя игра:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/heart_lg.png" alt="Heart of Tarrasque" style="width: 30px; height: 20px;"> Heart of Tarrasque (для здоровья), <img src="https://cdn.dota2.com/apps/dota2/images/items/assault_lg.png" alt="Assault Cuirass" style="width: 30px; height: 20px;"> Assault Cuirass (для урона команде)</li>';
+            recommendation += '<li><strong>Поздняя игра:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/shivas_guard_lg.png" alt="Shiva\'s Guard" style="width: 30px; height: 20px;"> Shiva\'s Guard (для замедления), <img src="https://cdn.dota2.com/apps/dota2/images/items/crimson_guard_lg.png" alt="Crimson Guard" style="width: 30px; height: 20px;"> Crimson Guard (для танкования)</li>';
             break;
         case 'support':
-            recommendation += '<li><strong>Ранние предметы:</strong> Mekansm (для лечения), Observer Ward (для зрения)</li>';
-            recommendation += '<li><strong>Средняя игра:</strong> Guardian Greaves (для лечения и маны), Force Staff (для контроля)</li>';
-            recommendation += '<li><strong>Поздняя игра:</strong> Glimmer Cape (для невидимости), Lotus Orb (для отражения)</li>';
+            recommendation += '<li><strong>Ранние предметы:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/mekansm_lg.png" alt="Mekansm" style="width: 30px; height: 20px;"> Mekansm (для лечения), <img src="https://cdn.dota2.com/apps/dota2/images/items/ward_observer_lg.png" alt="Observer Ward" style="width: 30px; height: 20px;"> Observer Ward (для зрения)</li>';
+            recommendation += '<li><strong>Средняя игра:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/guardian_greaves_lg.png" alt="Guardian Greaves" style="width: 30px; height: 20px;"> Guardian Greaves (для лечения и маны), <img src="https://cdn.dota2.com/apps/dota2/images/items/force_staff_lg.png" alt="Force Staff" style="width: 30px; height: 20px;"> Force Staff (для контроля)</li>';
+            recommendation += '<li><strong>Поздняя игра:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/glimmer_cape_lg.png" alt="Glimmer Cape" style="width: 30px; height: 20px;"> Glimmer Cape (для невидимости), <img src="https://cdn.dota2.com/apps/dota2/images/items/lotus_orb_lg.png" alt="Lotus Orb" style="width: 30px; height: 20px;"> Lotus Orb (для отражения)</li>';
             break;
         case 'roaming':
-            recommendation += '<li><strong>Ранние предметы:</strong> Power Treads (для мобильности), Diffusal Blade (для замедления)</li>';
-            recommendation += '<li><strong>Средняя игра:</strong> Manta Style (для иллюзий), Eul\'s Scepter (для контроля)</li>';
-            recommendation += '<li><strong>Поздняя игра:</strong> Desolator (для урона), Eye of Skadi (для замедления)</li>';
+            recommendation += '<li><strong>Ранние предметы:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/power_treads_lg.png" alt="Power Treads" style="width: 30px; height: 20px;"> Power Treads (для мобильности), <img src="https://cdn.dota2.com/apps/dota2/images/items/diffusal_blade_lg.png" alt="Diffusal Blade" style="width: 30px; height: 20px;"> Diffusal Blade (для замедления)</li>';
+            recommendation += '<li><strong>Средняя игра:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/manta_lg.png" alt="Manta Style" style="width: 30px; height: 20px;"> Manta Style (для иллюзий), <img src="https://cdn.dota2.com/apps/dota2/images/items/cyclone_lg.png" alt="Eul\'s Scepter" style="width: 30px; height: 20px;"> Eul\'s Scepter (для контроля)</li>';
+            recommendation += '<li><strong>Поздняя игра:</strong> <img src="https://cdn.dota2.com/apps/dota2/images/items/desolator_lg.png" alt="Desolator" style="width: 30px; height: 20px;"> Desolator (для урона), <img src="https://cdn.dota2.com/apps/dota2/images/items/skadi_lg.png" alt="Eye of Skadi" style="width: 30px; height: 20px;"> Eye of Skadi (для замедления)</li>';
             break;
         default:
-            recommendation += '<li>Общие предметы: Boots of Speed, Gloves of Haste, Hand of Midas</li>';
+            recommendation += '<li>Общие предметы: <img src="https://cdn.dota2.com/apps/dota2/images/items/boots_lg.png" alt="Boots of Speed" style="width: 30px; height: 20px;"> Boots of Speed, <img src="https://cdn.dota2.com/apps/dota2/images/items/gloves_lg.png" alt="Gloves of Haste" style="width: 30px; height: 20px;"> Gloves of Haste, <img src="https://cdn.dota2.com/apps/dota2/images/items/hand_of_midas_lg.png" alt="Hand of Midas" style="width: 30px; height: 20px;"> Hand of Midas</li>';
     }
     recommendation += '</ol>';
 
