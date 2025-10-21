@@ -129,6 +129,7 @@ const heroes = [
 // Заполнение селекторов героями
 function populateHeroes() {
     const heroList = document.getElementById('hero-list');
+    const heroSearch = document.getElementById('hero-search');
     const enemySelects = ['enemy-carry', 'enemy-mid', 'enemy-offlane', 'enemy-support1', 'enemy-support2'];
 
     // Очищаем селекторы перед заполнением
@@ -139,6 +140,7 @@ function populateHeroes() {
     });
 
     let selectedHero = null;
+    let allHeroItems = [];
 
     heroes.forEach(hero => {
         // Создаем элемент для списка героев
@@ -160,6 +162,7 @@ function populateHeroes() {
             document.getElementById('hero').value = hero.id;
         });
         heroList.appendChild(heroItem);
+        allHeroItems.push(heroItem);
 
         // Создаем опции для селекторов противника с иконками
         const option = document.createElement('option');
@@ -171,6 +174,24 @@ function populateHeroes() {
             const enemyOption = option.cloneNode(true);
             document.getElementById(selectId).appendChild(enemyOption);
         });
+    });
+
+    // Функция фильтрации героев
+    function filterHeroes(searchTerm) {
+        const term = searchTerm.toLowerCase();
+        allHeroItems.forEach(item => {
+            const heroName = item.querySelector('.hero-name').textContent.toLowerCase();
+            if (heroName.includes(term)) {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    // Обработчик поиска
+    heroSearch.addEventListener('input', (e) => {
+        filterHeroes(e.target.value);
     });
 
     // Скрытый input для героя
