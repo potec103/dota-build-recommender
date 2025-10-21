@@ -131,6 +131,13 @@ function populateHeroes() {
     const heroSelect = document.getElementById('hero');
     const enemySelects = ['enemy-carry', 'enemy-mid', 'enemy-offlane', 'enemy-support1', 'enemy-support2'];
 
+    // Очищаем селекторы перед заполнением
+    heroSelect.innerHTML = '<option value="">-- Выберите героя --</option>';
+    enemySelects.forEach(selectId => {
+        const select = document.getElementById(selectId);
+        select.innerHTML = '<option value="">-- Выберите --</option>';
+    });
+
     heroes.forEach(hero => {
         const option = document.createElement('option');
         option.value = hero.id;
